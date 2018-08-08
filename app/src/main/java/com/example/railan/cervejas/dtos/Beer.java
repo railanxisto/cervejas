@@ -1,14 +1,45 @@
 package com.example.railan.cervejas.dtos;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by railan on 06/08/18.
  */
 
 public class Beer {
+    @SerializedName("id")
     private int id;
+
+    @SerializedName("name")
     private String name;
+
+    @SerializedName("description")
     private String description;
-    private String image_url;
+
+    @SerializedName("tagline")
+    private String tagline;
+
+    @SerializedName("first_brewed")
+    private String firstBrewed;
+
+    @SerializedName("image_url")
+    private String imageUrl;
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline;
+    }
+
+    public String getFirst_brewed() {
+        return firstBrewed;
+    }
+
+    public void setFirst_brewed(String first_brewed) {
+        this.firstBrewed = first_brewed;
+    }
 
     public int getId() {
         return id;
@@ -35,11 +66,11 @@ public class Beer {
     }
 
     public String getImage_url() {
-        return image_url;
+        return imageUrl;
     }
 
     public void setImage_url(String image_url) {
-        this.image_url = image_url;
+        this.imageUrl = image_url;
     }
 
     @Override
