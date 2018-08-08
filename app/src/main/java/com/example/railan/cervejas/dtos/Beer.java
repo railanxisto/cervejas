@@ -33,12 +33,12 @@ public class Beer {
         this.tagline = tagline;
     }
 
-    public String getFirst_brewed() {
+    public String getFirstBrewed() {
         return firstBrewed;
     }
 
-    public void setFirst_brewed(String first_brewed) {
-        this.firstBrewed = first_brewed;
+    public void setFirstBrewed(String firstBrewed) {
+        this.firstBrewed = firstBrewed;
     }
 
     public int getId() {

@@ -93,14 +93,14 @@
                         tools:ignore="ContentDescription" />
 
                     <EditText
-                        android:id="@+id/edtBusca"
+                        android:id="@+id/buscaEditText"
                         android:background="@android:color/transparent"
                         android:textCursorDrawable="@null"
                         android:inputType="text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:hint="Buscar Cerveja"
+                        android:hint="@string/edt_busca"
                         android:textColor="@color/white"
                         android:textColorHint="@color/gray"
                         android:textSize="16sp"

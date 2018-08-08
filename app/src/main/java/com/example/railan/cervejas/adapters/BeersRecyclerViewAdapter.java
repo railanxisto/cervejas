@@ -10,6 +10,7 @@ import android.widget.Filter;
 import android.widget.Filterable;
 
 import com.example.railan.cervejas.R;
+import com.example.railan.cervejas.Utils.BeerFilter;
 import com.example.railan.cervejas.databinding.BeerItemBinding;
 import com.example.railan.cervejas.dtos.Beer;
 import com.squareup.picasso.Picasso;
@@ -24,14 +25,18 @@ import java.util.List;
 public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecyclerViewAdapter.ViewHolder> implements Filterable {
 
     private List<Beer> beers = new ArrayList<>();
+    private List<Beer> filteredBeers = new ArrayList<>();
+
 
     public BeersRecyclerViewAdapter(@NonNull List<Beer> beers) {
         this.beers.addAll(beers);
+        this.filteredBeers.addAll(beers);
         notifyDataSetChanged();
     }
 
     public void setBeers(@NonNull List<Beer> beers) {
         BeersRecyclerViewAdapter.this.beers = beers;
+        BeersRecyclerViewAdapter.this.filteredBeers = beers;
         notifyDataSetChanged();
     }
 
@@ -44,7 +49,7 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
 
     @Override
     public void onBindViewHolder(@NonNull BeersRecyclerViewAdapter.ViewHolder holder, int position) {
-        Beer beer = beers.get(position);
+        Beer beer = filteredBeers.get(position);
         holder.bind(beer);
         holder.mBinding.layoutInformation.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,15 +66,15 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
 
     @Override
     public int getItemCount() {
-        return beers.size();
+        return filteredBeers.size();
     }
 
     @Override
     public Filter getFilter() {
-        return new AgenciasFilter(beers, new AgenciasFilter.OnResultFilteredReceivedListener() {
+        return new BeerFilter(beers, new BeerFilter.OnResultFilteredReceivedListener() {
             @Override
             public void onResultFilteredReceived(List<Beer> beers) {
-                BeersRecyclerViewAdapter.this.filteredBeers = filteredBeers;
+                BeersRecyclerViewAdapter.this.filteredBeers = beers;
                 notifyDataSetChanged();
             }
         });

@@ -1,15 +1,12 @@
 package com.example.railan.cervejas.activities;
 
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -49,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
 
         setSupportActionBar(binding.mainToolbar);
 
-        binding.edtBusca.addTextChangedListener(new TextWatcher() {
+        binding.buscaEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 

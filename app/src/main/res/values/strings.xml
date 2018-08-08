@@ -3,4 +3,5 @@
     <string name="app_name">cervejas</string>
     <string name="name">Nome</string>
     <string name="description">Descrição</string>
+    <string name="edt_busca">Buscar cerveja por nome, tag ou data</string>
 </resources>
