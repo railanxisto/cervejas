@@ -33,15 +33,16 @@ public class BeerFavoritePresenter implements BeerFavoriteContract.UserActionsLi
             @Override
             public void success(List<Beer> beers) {
                 if (beers.size() != 0) {
+                    viewListener.showEmptyFavoriteList(false);
                     viewListener.showFavoriteBeers(beers);
                 } else {
-                    viewListener.showEmptyFavoriteList();
+                    viewListener.showEmptyFavoriteList(true);
                 }
             }
 
             @Override
             public void onError(String message) {
-                viewListener.showEmptyFavoriteList();
+                viewListener.showEmptyFavoriteList(true);
             }
         });
     }

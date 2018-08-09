@@ -14,7 +14,7 @@ public interface BeerContract {
 
         void showError(String error);
 
-        void showEmptyList();
+        void showEmptyFavoriteList(boolean isToShow);
     }
 
     interface UserActionsListener {

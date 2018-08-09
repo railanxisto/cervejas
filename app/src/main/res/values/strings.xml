@@ -10,4 +10,5 @@
     <string name="unfavorite">Desfavoritar</string>
     <string name="favorites">Favoritas</string>
     <string name="edt_busca">Buscar cerveja por nome, tag ou data</string>
+    <string name="empty_message">Nenhum Resultado Encontrado</string>
 </resources>

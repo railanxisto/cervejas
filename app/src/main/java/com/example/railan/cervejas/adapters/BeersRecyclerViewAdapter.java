@@ -78,6 +78,11 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
             @Override
             public void onResultFilteredReceived(List<Beer> beers) {
                 BeersRecyclerViewAdapter.this.filteredBeers = beers;
+                if (beers.size() == 0) {
+                    listener.showEmptyFavoriteList(true);
+                } else {
+                    listener.showEmptyFavoriteList(false);
+                }
                 notifyDataSetChanged();
             }
         });

@@ -78,10 +78,12 @@ public class FavoritesListActivity extends AppCompatActivity implements BeerFavo
 
     private void showProgress(boolean isToShow) {
         if (isToShow) {
+            binding.emptyListMessage.setVisibility(View.GONE);
             binding.progressBar.setVisibility(View.VISIBLE);
             binding.recyclerView.setVisibility(View.GONE);
         } else {
             binding.progressBar.setVisibility(View.GONE);
+            binding.emptyListMessage.setVisibility(View.GONE);
             binding.recyclerView.setVisibility(View.VISIBLE);
         }
     }
@@ -93,9 +95,13 @@ public class FavoritesListActivity extends AppCompatActivity implements BeerFavo
     }
 
     @Override
-    public void showEmptyFavoriteList() {
-        // TODO: 09/08/18  Colocar uma mensagem de Lista Vazia
+    public void showEmptyFavoriteList(boolean isToShow) {
         showProgress(false);
+        if (isToShow) {
+            binding.emptyListMessage.setVisibility(View.VISIBLE);
+        } else {
+            binding.emptyListMessage.setVisibility(View.GONE);
+        }
     }
 
     @Override

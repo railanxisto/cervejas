@@ -87,7 +87,9 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
         if (isToShow) {
             binding.progressBar.setVisibility(View.VISIBLE);
             binding.recyclerView.setVisibility(View.GONE);
+            binding.emptyListMessage.setVisibility(View.GONE);
         } else {
+            binding.emptyListMessage.setVisibility(View.GONE);
             binding.progressBar.setVisibility(View.GONE);
             binding.recyclerView.setVisibility(View.VISIBLE);
         }
@@ -111,9 +113,13 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
     }
 
     @Override
-    public void showEmptyList() {
-        // TODO: 09/08/18  Colocar uma mensagem de Lista Vazia
+    public void showEmptyFavoriteList(boolean isToShow) {
         showProgress(false);
+        if (isToShow) {
+            binding.emptyListMessage.setVisibility(View.VISIBLE);
+        } else {
+            binding.emptyListMessage.setVisibility(View.GONE);
+        }
     }
 
     @Override

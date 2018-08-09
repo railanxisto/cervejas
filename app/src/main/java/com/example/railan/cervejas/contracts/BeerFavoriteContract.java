@@ -12,7 +12,7 @@ public interface BeerFavoriteContract {
     interface View {
         void showFavoriteBeers (List<Beer> beers);
 
-        void showEmptyFavoriteList();
+        void showEmptyFavoriteList(boolean isToShow);
     }
 
     interface UserActionsListener {
