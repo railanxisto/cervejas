@@ -1,29 +1,53 @@
 package com.example.railan.cervejas.dtos;
 
+import android.arch.persistence.room.ColumnInfo;
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Created by railan on 06/08/18.
  */
 
+@Entity
 public class Beer {
+
+    @NonNull
+    @PrimaryKey
     @SerializedName("id")
     private int id;
 
     @SerializedName("name")
+    @ColumnInfo(name = "name")
     private String name;
 
     @SerializedName("description")
+    @ColumnInfo(name = "description")
     private String description;
 
     @SerializedName("tagline")
+    @ColumnInfo(name = "tagline")
     private String tagline;
 
     @SerializedName("first_brewed")
+    @ColumnInfo(name = "first_brewed")
     private String firstBrewed;
 
     @SerializedName("image_url")
+    @ColumnInfo(name = "image_url")
     private String imageUrl;
+
+    private boolean isFavorited = false;
+
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
 
     public String getTagline() {
         return tagline;
@@ -65,13 +89,6 @@ public class Beer {
         this.description = description;
     }
 
-    public String getImage_url() {
-        return imageUrl;
-    }
-
-    public void setImage_url(String image_url) {
-        this.imageUrl = image_url;
-    }
 
     @Override
     public String toString() {

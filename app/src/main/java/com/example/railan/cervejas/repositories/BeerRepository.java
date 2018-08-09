@@ -1,9 +1,13 @@
 package com.example.railan.cervejas.repositories;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.example.railan.cervejas.dtos.Beer;
 import com.example.railan.cervejas.network.Services;
+import com.example.railan.cervejas.persistence.AppDatabase;
+import com.example.railan.cervejas.persistence.BeerDAO;
 
 import java.io.IOException;
 import java.util.List;
@@ -28,6 +32,8 @@ public class BeerRepository {
 
     private Services mRetrofitService = mRetrofit.create(Services.class);
 
+    AppDatabase database;
+
     private static final BeerRepository instance = new BeerRepository();
 
     private static Context context;
@@ -41,13 +47,15 @@ public class BeerRepository {
         //ignore
     }
 
-    public void loadBeers(final GetFaqListener listener) {
+    public void loadBeers(final GetBeersListener listener) {
+
         try {
             mRetrofitService.getBeers().enqueue(new Callback<List<Beer>>() {
                 @Override
                 public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
                     if (response.code() == 200 && response.body() != null) {
                         listener.success(response.body());
+                        saveToDB(response.body());
                     } else {
                         listener.onError("Erro desconhecido. Tente Novamente mais tarde");
                     }
@@ -63,7 +71,40 @@ public class BeerRepository {
         }
     }
 
-    public interface GetFaqListener extends OnErrorListener{
+    @SuppressLint("StaticFieldLeak")
+    public void saveToDB(final List<Beer> beers) {
+        new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Void... params) {
+                AppDatabase.getDatabase(context).beerDao().insertAllBeers(beers);
+                return 1;
+            }
+
+            @Override
+            protected void onPostExecute(Integer agentsCount) {}
+        }.execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void getFavoritesFromDB(final GetFromBDListener listener) {
+        new  AsyncTask<Void, Void, List<Beer>>() {
+            @Override
+            protected List<Beer> doInBackground(Void... params) {
+                return AppDatabase.getDatabase(context).beerDao().getFavoritedBeers();
+            }
+
+            @Override
+            protected void onPostExecute(List<Beer> beers) {
+                listener.success(beers);
+            }
+        }.execute();
+    }
+
+    public interface GetBeersListener extends OnErrorListener{
+        void success(List<Beer> beers);
+    }
+
+    public interface GetFromBDListener extends OnErrorListener{
         void success(List<Beer> beers);
     }
 

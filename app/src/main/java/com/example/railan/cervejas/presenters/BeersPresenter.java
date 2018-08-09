@@ -29,7 +29,7 @@ public class BeersPresenter implements BeerContract.UserActionsListener {
 
     @Override
     public void loadBeers() {
-        repository.loadBeers(new BeerRepository.GetFaqListener() {
+        repository.loadBeers(new BeerRepository.GetBeersListener() {
             @Override
             public void success(List<Beer> beers) {
                 viewListener.showBeers(beers);

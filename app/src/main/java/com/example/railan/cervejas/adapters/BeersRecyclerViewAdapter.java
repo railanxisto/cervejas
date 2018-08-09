@@ -58,7 +58,7 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
             }
         });
         Picasso.get()
-                .load(holder.mBinding.getBeer().getImage_url().trim())
+                .load(holder.mBinding.getBeer().getImageUrl().trim())
                 .resize(100, 100)
                 .centerInside()
                 .into(holder.mBinding.imageView);

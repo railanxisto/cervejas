@@ -15,6 +15,7 @@ import com.example.railan.cervejas.adapters.BeersRecyclerViewAdapter;
 import com.example.railan.cervejas.contracts.BeerContract;
 import com.example.railan.cervejas.databinding.ActivityMainBinding;
 import com.example.railan.cervejas.dtos.Beer;
+import com.example.railan.cervejas.persistence.AppDatabase;
 import com.example.railan.cervejas.presenters.BeersPresenter;
 import com.example.railan.cervejas.repositories.BeerRepository;
 
@@ -29,22 +30,19 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
     private BeersPresenter presenter;
     private BeersRecyclerViewAdapter adapter;
     private List<Beer> beers = new ArrayList<>();
+    AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        adapter = new BeersRecyclerViewAdapter(beers);
-        binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-        binding.recyclerView.setHasFixedSize(false);
+        database = AppDatabase.getDatabase(this);
 
         presenter = new BeersPresenter(this, BeerRepository.getInstance(this.getApplicationContext()));
         presenter.loadBeers();
 
         setSupportActionBar(binding.mainToolbar);
+        setRecyclerViewLayout();
 
         binding.buscaEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -59,11 +57,17 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
 
             @Override
             public void afterTextChanged(Editable editable) {
-                //after the change calling the method and passing the search input
-                //filter(editable.toString());
                 search(editable.toString());
             }
         });
+    }
+
+    public void setRecyclerViewLayout() {
+        adapter = new BeersRecyclerViewAdapter(beers);
+        binding.recyclerView.setAdapter(adapter);
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+        binding.recyclerView.setHasFixedSize(false);
     }
 
     private void search(String query) {
@@ -84,7 +88,8 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
 
     @Override
     public void showBeers(List<Beer> beers) {
-        adapter.setBeers(beers);
+        database.beerDao().getAllBeers();
+        //adapter.setBeers(beers);
         showProgress(false);
     }
 
