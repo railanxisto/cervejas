@@ -138,7 +138,10 @@ public class BeerRepository {
     }
 
     private void handleThrowable(Throwable t, OnErrorListener listener) {
-        listener.onError("Erro Generico");
+        if (listener != null) {
+            listener.onError("Erro desconhecido. Tente Novamente mais tarde");
+        }
+        System.err.println(t.getMessage());
     }
 
     public interface OnErrorListener {

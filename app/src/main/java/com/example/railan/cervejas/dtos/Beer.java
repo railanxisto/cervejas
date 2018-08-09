@@ -41,6 +41,15 @@ public class Beer implements Serializable{
     @ColumnInfo(name = "image_url")
     private String imageUrl;
 
+    @SerializedName("abv")
+    @ColumnInfo(name = "abv")
+    private String abv;
+
+    @SerializedName("brewers_tips")
+    @ColumnInfo(name = "brewers_tips")
+    private String brewerTips;
+
+
     private boolean isFavorited = false;
 
     public String getImageUrl() {
@@ -89,6 +98,21 @@ public class Beer implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getAbv() {
+        return abv;
+    }
+
+    public void setAbv(String abv) {
+        this.abv = abv;
+    }
+    public String getBrewerTips() {
+        return brewerTips;
+    }
+
+    public void setBrewerTips(String brewerTips) {
+        this.brewerTips = brewerTips;
     }
 
     public boolean isFavorited() {

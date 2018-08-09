@@ -5,6 +5,8 @@
     <string name="name">Nome</string>
     <string name="description">Descrição</string>
     <string name="ingredients">Ingredientes</string>
+    <string name="alcohol_percentage">Porcentagem de Alcool</string>
+    <string name="brewer_tips">Dicas do Fabricante</string>
     <string name="first_brewed">Data de Criação</string>
     <string name="favorite">Favoritar</string>
     <string name="unfavorite">Desfavoritar</string>
