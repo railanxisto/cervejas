@@ -11,6 +11,7 @@ import android.widget.Filterable;
 
 import com.example.railan.cervejas.R;
 import com.example.railan.cervejas.Utils.BeerFilter;
+import com.example.railan.cervejas.activities.MainActivity;
 import com.example.railan.cervejas.databinding.BeerItemBinding;
 import com.example.railan.cervejas.dtos.Beer;
 import com.squareup.picasso.Picasso;
@@ -26,11 +27,13 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
 
     private List<Beer> beers = new ArrayList<>();
     private List<Beer> filteredBeers = new ArrayList<>();
+    private MainActivity listener;
 
 
-    public BeersRecyclerViewAdapter(@NonNull List<Beer> beers) {
+    public BeersRecyclerViewAdapter(@NonNull List<Beer> beers, MainActivity listener) {
         this.beers.addAll(beers);
         this.filteredBeers.addAll(beers);
+        this.listener = listener;
         notifyDataSetChanged();
     }
 
@@ -49,12 +52,12 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
 
     @Override
     public void onBindViewHolder(@NonNull BeersRecyclerViewAdapter.ViewHolder holder, int position) {
-        Beer beer = filteredBeers.get(position);
+        final Beer beer = filteredBeers.get(position);
         holder.bind(beer);
         holder.mBinding.layoutInformation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                System.out.println("Beer Clicada");
+            listener.showDetailsActivity(beer);
             }
         });
         Picasso.get()

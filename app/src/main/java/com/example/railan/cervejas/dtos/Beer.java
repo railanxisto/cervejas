@@ -7,12 +7,14 @@ import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 /**
  * Created by railan on 06/08/18.
  */
 
 @Entity
-public class Beer {
+public class Beer implements Serializable{
 
     @NonNull
     @PrimaryKey
@@ -89,6 +91,13 @@ public class Beer {
         this.description = description;
     }
 
+    public boolean isFavorited() {
+        return isFavorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        isFavorited = favorited;
+    }
 
     @Override
     public String toString() {

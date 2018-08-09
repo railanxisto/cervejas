@@ -1,5 +1,7 @@
 package com.example.railan.cervejas.activities;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -23,6 +25,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements BeerContract.View {
+
+    public static final String PARAM_BEER = "beer";
 
     // dataBinding
     ActivityMainBinding binding;
@@ -63,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
     }
 
     public void setRecyclerViewLayout() {
-        adapter = new BeersRecyclerViewAdapter(beers);
+        adapter = new BeersRecyclerViewAdapter(beers, this);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -86,10 +90,16 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
         }
     }
 
+    public void showDetailsActivity(Beer selectedBeer) {
+        Intent intent = new Intent(this, BeerDetailsActivity.class);
+        intent.putExtra(PARAM_BEER, selectedBeer);
+        startActivity(intent);
+    }
+
     @Override
     public void showBeers(List<Beer> beers) {
-        database.beerDao().getAllBeers();
-        //adapter.setBeers(beers);
+        //database.beerDao().getAllBeers();
+        adapter.setBeers(beers);
         showProgress(false);
     }
 
