@@ -8,7 +8,7 @@ import java.util.List;
  * Created by railan on 09/08/18.
  */
 
-public interface BeerDetailsContract {
+public interface BeerFavoriteContract {
     interface View {
         void showFavoriteBeers (List<Beer> beers);
 

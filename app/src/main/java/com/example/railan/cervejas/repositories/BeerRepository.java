@@ -55,6 +55,7 @@ public class BeerRepository {
                 public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
                     if (response.code() == 200 && response.body() != null) {
                         saveToDB(response.body());
+                        listener.success(response.body());
                     } else {
                         listener.onError("Erro desconhecido. Tente Novamente mais tarde");
                     }

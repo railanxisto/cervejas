@@ -1,6 +1,5 @@
 package com.example.railan.cervejas.activities;
 
-import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,21 +10,18 @@ import android.text.TextWatcher;
 import android.view.View;
 
 import com.example.railan.cervejas.R;
-import com.example.railan.cervejas.adapters.BeersRecyclerViewAdapter;
 import com.example.railan.cervejas.adapters.FavoriteBeersRecyclerViewAdapter;
-import com.example.railan.cervejas.contracts.BeerDetailsContract;
+import com.example.railan.cervejas.contracts.BeerFavoriteContract;
 import com.example.railan.cervejas.databinding.ActivityFavoritesListBinding;
-import com.example.railan.cervejas.databinding.ActivityMainBinding;
 import com.example.railan.cervejas.dtos.Beer;
 import com.example.railan.cervejas.persistence.AppDatabase;
 import com.example.railan.cervejas.presenters.BeerFavoritePresenter;
-import com.example.railan.cervejas.presenters.BeersPresenter;
 import com.example.railan.cervejas.repositories.BeerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class FavoritesListActivity extends AppCompatActivity implements BeerDetailsContract.View {
+public class FavoritesListActivity extends AppCompatActivity implements BeerFavoriteContract.View {
 
     // dataBinding
     ActivityFavoritesListBinding binding;
@@ -98,7 +94,8 @@ public class FavoritesListActivity extends AppCompatActivity implements BeerDeta
 
     @Override
     public void showEmptyFavoriteList() {
-
+        // TODO: 09/08/18  Colocar uma mensagem de Lista Vazia
+        showProgress(false);
     }
 
     @Override

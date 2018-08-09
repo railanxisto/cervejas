@@ -2,8 +2,7 @@ package com.example.railan.cervejas.presenters;
 
 import android.support.annotation.NonNull;
 
-import com.example.railan.cervejas.contracts.BeerContract;
-import com.example.railan.cervejas.contracts.BeerDetailsContract;
+import com.example.railan.cervejas.contracts.BeerFavoriteContract;
 import com.example.railan.cervejas.dtos.Beer;
 import com.example.railan.cervejas.repositories.BeerRepository;
 
@@ -15,15 +14,15 @@ import static com.google.gson.internal.$Gson$Preconditions.checkNotNull;
  * Created by railan on 09/08/18.
  */
 
-public class BeerFavoritePresenter implements BeerDetailsContract.UserActionsListener {
+public class BeerFavoritePresenter implements BeerFavoriteContract.UserActionsListener {
 
     @NonNull
-    private BeerDetailsContract.View viewListener;
+    private BeerFavoriteContract.View viewListener;
 
     @NonNull
     private BeerRepository repository;
 
-    public BeerFavoritePresenter(@NonNull BeerDetailsContract.View viewListener, @NonNull BeerRepository repository) {
+    public BeerFavoritePresenter(@NonNull BeerFavoriteContract.View viewListener, @NonNull BeerRepository repository) {
         this.viewListener = checkNotNull(viewListener);
         this.repository = checkNotNull(repository);
     }

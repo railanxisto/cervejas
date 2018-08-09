@@ -16,7 +16,6 @@ import com.example.railan.cervejas.adapters.BeersRecyclerViewAdapter;
 import com.example.railan.cervejas.contracts.BeerContract;
 import com.example.railan.cervejas.databinding.ActivityMainBinding;
 import com.example.railan.cervejas.dtos.Beer;
-import com.example.railan.cervejas.persistence.AppDatabase;
 import com.example.railan.cervejas.presenters.BeersPresenter;
 import com.example.railan.cervejas.repositories.BeerRepository;
 
@@ -113,6 +112,7 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
 
     @Override
     public void showEmptyList() {
+        // TODO: 09/08/18  Colocar uma mensagem de Lista Vazia
         showProgress(false);
     }
 
