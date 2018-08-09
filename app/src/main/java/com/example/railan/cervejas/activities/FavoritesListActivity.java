@@ -2,46 +2,50 @@ package com.example.railan.cervejas.activities;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import com.example.railan.cervejas.R;
 import com.example.railan.cervejas.adapters.BeersRecyclerViewAdapter;
-import com.example.railan.cervejas.contracts.BeerContract;
+import com.example.railan.cervejas.adapters.FavoriteBeersRecyclerViewAdapter;
+import com.example.railan.cervejas.contracts.BeerDetailsContract;
+import com.example.railan.cervejas.databinding.ActivityFavoritesListBinding;
 import com.example.railan.cervejas.databinding.ActivityMainBinding;
 import com.example.railan.cervejas.dtos.Beer;
 import com.example.railan.cervejas.persistence.AppDatabase;
+import com.example.railan.cervejas.presenters.BeerFavoritePresenter;
 import com.example.railan.cervejas.presenters.BeersPresenter;
 import com.example.railan.cervejas.repositories.BeerRepository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements BeerContract.View {
-
-    public static final String PARAM_BEER = "beer";
+public class FavoritesListActivity extends AppCompatActivity implements BeerDetailsContract.View {
 
     // dataBinding
-    ActivityMainBinding binding;
+    ActivityFavoritesListBinding binding;
 
-    private BeersPresenter presenter;
-    private BeersRecyclerViewAdapter adapter;
+    private BeerFavoritePresenter presenter;
+    private FavoriteBeersRecyclerViewAdapter adapter;
     private List<Beer> beers = new ArrayList<>();
+    AppDatabase database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_favorites_list);
 
-        presenter = new BeersPresenter(this, BeerRepository.getInstance(this.getApplicationContext()));
+        presenter = new BeerFavoritePresenter(this, BeerRepository.getInstance(this.getApplicationContext()));
+        presenter.loadFavoriteBeers();
 
         setSupportActionBar(binding.mainToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         setRecyclerViewLayout();
 
         binding.buscaEditText.addTextChangedListener(new TextWatcher() {
@@ -60,18 +64,10 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
                 search(editable.toString());
             }
         });
-
-        binding.textViewFavoritos.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), FavoritesListActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 
     public void setRecyclerViewLayout() {
-        adapter = new BeersRecyclerViewAdapter(beers, this);
+        adapter = new FavoriteBeersRecyclerViewAdapter(beers, this);
         binding.recyclerView.setAdapter(adapter);
         binding.recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         binding.recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
@@ -84,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
         }
     }
 
-    public void showProgress(boolean isToShow) {
+    private void showProgress(boolean isToShow) {
         if (isToShow) {
             binding.progressBar.setVisibility(View.VISIBLE);
             binding.recyclerView.setVisibility(View.GONE);
@@ -94,31 +90,20 @@ public class MainActivity extends AppCompatActivity implements BeerContract.View
         }
     }
 
-    public void showDetailsActivity(Beer selectedBeer) {
-        Intent intent = new Intent(this, BeerDetailsActivity.class);
-        intent.putExtra(PARAM_BEER, selectedBeer);
-        startActivity(intent);
-    }
-
     @Override
-    public void showBeers(List<Beer> beers) {
+    public void showFavoriteBeers(List<Beer> beers) {
         adapter.setBeers(beers);
         showProgress(false);
     }
 
-    public void showError(String message) {
-        Toast toast = Toast.makeText(this, message, Toast.LENGTH_LONG);
-        toast.show();
+    @Override
+    public void showEmptyFavoriteList() {
+
     }
 
     @Override
-    public void showEmptyList() {
-        showProgress(false);
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        presenter.loadBeers();
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

@@ -54,7 +54,6 @@ public class BeerRepository {
                 @Override
                 public void onResponse(Call<List<Beer>> call, Response<List<Beer>> response) {
                     if (response.code() == 200 && response.body() != null) {
-                        listener.success(response.body());
                         saveToDB(response.body());
                     } else {
                         listener.onError("Erro desconhecido. Tente Novamente mais tarde");
@@ -69,6 +68,20 @@ public class BeerRepository {
         } catch (Exception e) {
             handleThrowable(e, listener);
         }
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void updateBeerOnDB(final Beer beer) {
+        new AsyncTask<Void, Void, Integer>() {
+            @Override
+            protected Integer doInBackground(Void... params) {
+                AppDatabase.getDatabase(context).beerDao().insertBeer(beer);
+                return 1;
+            }
+
+            @Override
+            protected void onPostExecute(Integer agentsCount) {}
+        }.execute();
     }
 
     @SuppressLint("StaticFieldLeak")
@@ -91,6 +104,21 @@ public class BeerRepository {
             @Override
             protected List<Beer> doInBackground(Void... params) {
                 return AppDatabase.getDatabase(context).beerDao().getFavoritedBeers();
+            }
+
+            @Override
+            protected void onPostExecute(List<Beer> beers) {
+                listener.success(beers);
+            }
+        }.execute();
+    }
+
+    @SuppressLint("StaticFieldLeak")
+    public void getBeersFromDB(final GetFromBDListener listener) {
+        new  AsyncTask<Void, Void, List<Beer>>() {
+            @Override
+            protected List<Beer> doInBackground(Void... params) {
+                return AppDatabase.getDatabase(context).beerDao().getAllBeers();
             }
 
             @Override

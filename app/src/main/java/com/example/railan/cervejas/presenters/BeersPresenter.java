@@ -29,16 +29,32 @@ public class BeersPresenter implements BeerContract.UserActionsListener {
 
     @Override
     public void loadBeers() {
-        repository.loadBeers(new BeerRepository.GetBeersListener() {
-            @Override
-            public void success(List<Beer> beers) {
-                viewListener.showBeers(beers);
-            }
-
+        repository.getBeersFromDB(new BeerRepository.GetFromBDListener() {
             @Override
             public void onError(String message) {
                 viewListener.showError(message);
+                repository.loadBeers(new BeerRepository.GetBeersListener() {
+                    @Override
+                    public void success(List<Beer> beers) {
+                        viewListener.showBeers(beers);
+                    }
+
+                    @Override
+                    public void onError(String message) {
+                        viewListener.showError(message);
+                    }
+                });
+            }
+
+            @Override
+            public void success(List<Beer> beers) {
+                if (beers.size() > 0) {
+                    viewListener.showBeers(beers);
+                } else {
+                    viewListener.showEmptyList();
+                }
             }
         });
+
     }
 }

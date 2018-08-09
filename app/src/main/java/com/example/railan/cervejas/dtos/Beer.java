@@ -101,6 +101,6 @@ public class Beer implements Serializable{
 
     @Override
     public String toString() {
-        return "id: " + id + " nome: " + name;
+        return "id: " + id + " nome: " + name + " isFavorited: " + isFavorited();
     }
 }

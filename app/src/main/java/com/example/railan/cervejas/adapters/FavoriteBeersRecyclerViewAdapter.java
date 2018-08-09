@@ -11,6 +11,7 @@ import android.widget.Filterable;
 
 import com.example.railan.cervejas.R;
 import com.example.railan.cervejas.Utils.BeerFilter;
+import com.example.railan.cervejas.activities.FavoritesListActivity;
 import com.example.railan.cervejas.activities.MainActivity;
 import com.example.railan.cervejas.databinding.BeerItemBinding;
 import com.example.railan.cervejas.dtos.Beer;
@@ -20,17 +21,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by railan on 07/08/18.
+ * Created by railan on 09/08/18.
  */
 
-public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecyclerViewAdapter.ViewHolder> implements Filterable {
+public class FavoriteBeersRecyclerViewAdapter extends RecyclerView.Adapter<FavoriteBeersRecyclerViewAdapter.ViewHolder> implements Filterable {
 
     private List<Beer> beers = new ArrayList<>();
     private List<Beer> filteredBeers = new ArrayList<>();
-    private MainActivity listener;
+    private FavoritesListActivity listener;
 
 
-    public BeersRecyclerViewAdapter(@NonNull List<Beer> beers, MainActivity listener) {
+    public FavoriteBeersRecyclerViewAdapter(@NonNull List<Beer> beers, FavoritesListActivity listener) {
         this.beers.addAll(beers);
         this.filteredBeers.addAll(beers);
         this.listener = listener;
@@ -38,28 +39,22 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
     }
 
     public void setBeers(@NonNull List<Beer> beers) {
-        BeersRecyclerViewAdapter.this.beers = beers;
-        BeersRecyclerViewAdapter.this.filteredBeers = beers;
+        FavoriteBeersRecyclerViewAdapter.this.beers = beers;
+        FavoriteBeersRecyclerViewAdapter.this.filteredBeers = beers;
         notifyDataSetChanged();
     }
 
     @Override
-    public BeersRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public FavoriteBeersRecyclerViewAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         BeerItemBinding binding = DataBindingUtil.inflate(inflater, R.layout.beer_item, parent, false);
-        return new ViewHolder(binding);
+        return new FavoriteBeersRecyclerViewAdapter.ViewHolder(binding);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull BeersRecyclerViewAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoriteBeersRecyclerViewAdapter.ViewHolder holder, int position) {
         final Beer beer = filteredBeers.get(position);
         holder.bind(beer);
-        holder.mBinding.row.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            listener.showDetailsActivity(beer);
-            }
-        });
         Picasso.get()
                 .load(holder.mBinding.getBeer().getImageUrl().trim())
                 .resize(100, 100)
@@ -77,7 +72,7 @@ public class BeersRecyclerViewAdapter extends RecyclerView.Adapter<BeersRecycler
         return new BeerFilter(beers, new BeerFilter.OnResultFilteredReceivedListener() {
             @Override
             public void onResultFilteredReceived(List<Beer> beers) {
-                BeersRecyclerViewAdapter.this.filteredBeers = beers;
+                FavoriteBeersRecyclerViewAdapter.this.filteredBeers = beers;
                 notifyDataSetChanged();
             }
         });

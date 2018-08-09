@@ -23,11 +23,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.BeerDetailsActivity"
+
+        <activity
+            android:name=".activities.BeerDetailsActivity"
             android:label="@string/details_title"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustResize" />
+
+        <activity android:name=".activities.FavoritesListActivity"
+            android:label="@string/favorites"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize"
+            />
     </application>
 
 </manifest>

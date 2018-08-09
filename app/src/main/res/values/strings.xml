@@ -7,5 +7,7 @@
     <string name="ingredients">Ingredientes</string>
     <string name="first_brewed">Data de Criação</string>
     <string name="favorite">Favoritar</string>
+    <string name="unfavorite">Desfavoritar</string>
+    <string name="favorites">Favoritas</string>
     <string name="edt_busca">Buscar cerveja por nome, tag ou data</string>
 </resources>

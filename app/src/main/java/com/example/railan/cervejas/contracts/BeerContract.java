@@ -13,6 +13,8 @@ public interface BeerContract {
         void showBeers (List<Beer> beers);
 
         void showError(String error);
+
+        void showEmptyList();
     }
 
     interface UserActionsListener {
