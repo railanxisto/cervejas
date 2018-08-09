@@ -1,0 +1,16 @@
+<resources>
+    <string name="main_title">Cervejeiros SA</string>
+    <string name="details_title">Detalhes da Cerveja</string>
+    <string name="app_name">cervejas</string>
+    <string name="name">Nome</string>
+    <string name="description">Descrição</string>
+    <string name="ingredients">Ingredientes</string>
+    <string name="alcohol_percentage">Porcentagem de Alcool</string>
+    <string name="brewer_tips">Dicas do Fabricante</string>
+    <string name="first_brewed">Data de Criação</string>
+    <string name="favorite">Favoritar</string>
+    <string name="unfavorite">Desfavoritar</string>
+    <string name="favorites">Favoritas</string>
+    <string name="edt_busca">Buscar cerveja por nome, tag ou data</string>
+    <string name="empty_message">Nenhum Resultado Encontrado</string>
+</resources>
